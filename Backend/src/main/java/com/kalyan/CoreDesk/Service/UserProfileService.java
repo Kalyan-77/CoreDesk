@@ -20,7 +20,7 @@ public class UserProfileService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User Not found"));
 
-        UserProfile profile = new UserProfile();
+        UserProfile profile = userProfileRepository.findByUserId(userId).orElse(new UserProfile());
 
         profile.setAge(request.getAge());
         profile.setHeight(request.getHeight());

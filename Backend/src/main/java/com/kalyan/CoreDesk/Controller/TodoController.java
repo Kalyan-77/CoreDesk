@@ -25,17 +25,17 @@ public class TodoController {
     }
 
     @DeleteMapping("/delete/{todoId}")
-    public String deleteTodo(@PathVariable Long todoId, @PathVariable Long userId){
+    public String deleteTodo(@PathVariable("todoId") Long todoId, @PathVariable("userId") Long userId){
         return todoService.deleteTodo(todoId, userId);
     }
 
     @PutMapping("/update/{todoId}")
-    public TodoResponseDTO updateTodo(@PathVariable Long todoId, @PathVariable Long userId, @RequestBody TodoRequestDTO request){
+    public TodoResponseDTO updateTodo(@PathVariable("todoId") Long todoId, @PathVariable("userId") Long userId, @RequestBody TodoRequestDTO request){
         return todoService.updateTodo(todoId, request);
     }
 
     @PatchMapping("/toggleComplete/{todoId}")
-    public TodoResponseDTO toggleComplete(@PathVariable Long todoId, @PathVariable Long userId){
+    public TodoResponseDTO toggleComplete(@PathVariable("todoId") Long todoId, @PathVariable("userId") Long userId){
         return todoService.toggleComplete(todoId, userId);
     }
 

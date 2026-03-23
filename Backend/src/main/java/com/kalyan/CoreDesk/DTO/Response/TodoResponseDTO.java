@@ -17,4 +17,6 @@ public class TodoResponseDTO {
     private boolean completed;
     private LocalDateTime createdAt;
     private LocalDateTime dueDate;
+    private String priority;
+    private String category;
 }

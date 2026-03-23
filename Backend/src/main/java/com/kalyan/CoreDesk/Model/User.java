@@ -31,4 +31,10 @@ public class User {
     @OneToMany
     private List<Todo> todos;
 
+    @OneToMany
+    private List<Activity> activities;
+
+    @OneToMany
+    private List<Remainder> remainders;
+
 }

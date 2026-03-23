@@ -41,6 +41,13 @@ public class ActivityService {
 
     }
 
+    public java.util.List<ActivityResponseDTO> getActivities(Long userId){
+        return activityRepository.findByUserId(userId)
+                .stream()
+                .map(this::mapToDTO)
+                .toList();
+    }
+
     private ActivityResponseDTO mapToDTO(Activity activity){
 
         return ActivityResponseDTO.builder()

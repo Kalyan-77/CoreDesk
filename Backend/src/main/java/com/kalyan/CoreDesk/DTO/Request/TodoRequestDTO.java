@@ -11,5 +11,7 @@ public class TodoRequestDTO {
     private String title;
     private String description;
     private LocalDateTime dueDate;
+    private String priority;
+    private String category;
 
 }

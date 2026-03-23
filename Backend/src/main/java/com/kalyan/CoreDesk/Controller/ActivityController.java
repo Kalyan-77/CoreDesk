@@ -5,6 +5,7 @@ import com.kalyan.CoreDesk.DTO.Response.ActivityResponseDTO;
 import com.kalyan.CoreDesk.Service.ActivityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/activity")
@@ -18,4 +19,8 @@ public class ActivityController {
         return activityService.updateSteps(userId, request);
     }
 
+    @GetMapping("/{userId}")
+    public List<ActivityResponseDTO> getActivities(@PathVariable Long userId){
+        return activityService.getActivities(userId);
+    }
 }

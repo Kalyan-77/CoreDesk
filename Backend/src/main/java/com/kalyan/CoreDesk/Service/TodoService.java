@@ -29,6 +29,8 @@ public class TodoService {
         todo.setDescription(request.getDescription());
         todo.setCreatedAt(LocalDateTime.now());
         todo.setDueDate(request.getDueDate());
+        todo.setCategory(request.getCategory());
+        todo.setPriority(request.getPriority());
         todo.setCompleted(false);
         todo.setUser(user);
 
@@ -71,6 +73,8 @@ public class TodoService {
         existingTodo.setTitle(request.getTitle());
         existingTodo.setDescription(request.getDescription());
         existingTodo.setDueDate(request.getDueDate());
+        existingTodo.setCategory(request.getCategory());
+        existingTodo.setPriority(request.getPriority());
 
         Todo Updated = todoRepository.save(existingTodo);
 
@@ -102,6 +106,8 @@ public class TodoService {
                 .completed(todo.isCompleted())
                 .createdAt(todo.getCreatedAt())
                 .dueDate(todo.getDueDate())
+                .category(todo.getCategory())
+                .priority(todo.getPriority())
                 .build();
     }
 }
