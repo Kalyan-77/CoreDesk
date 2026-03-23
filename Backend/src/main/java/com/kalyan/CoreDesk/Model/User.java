@@ -25,7 +25,6 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 6, max = 20, message = "Password must be between 6 to 20 Characters")
     private String password;
 
     @OneToMany

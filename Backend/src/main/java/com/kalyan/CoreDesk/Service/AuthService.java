@@ -7,6 +7,7 @@ import com.kalyan.CoreDesk.Model.User;
 import com.kalyan.CoreDesk.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor // Automatically creates constructor for final fields (Dependency Injection)
 public class AuthService {
+    private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     public UserResponseDTO register(RegisterRequestDTO request){
@@ -26,7 +28,7 @@ public class AuthService {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         User savedUser = userRepository.save(user);
         return UserResponseDTO.builder()
@@ -40,8 +42,8 @@ public class AuthService {
         User existingUser = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User Not Found!!"));
 
-        if(!request.getPassword().equals(existingUser.getPassword())){
-            return "Password Not Matched";
+        if(!passwordEncoder.matches(request.getPassword(), existingUser.getPassword())){
+            throw new RuntimeException("Invalid credentials");
         }
 
         return "Login Successful!!";
@@ -79,7 +81,7 @@ public class AuthService {
 
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setUsername(updatedUser.getUsername());
-        existingUser.setPassword(updatedUser.getPassword());
+        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 
         return userRepository.save(existingUser);
     }
