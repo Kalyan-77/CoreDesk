@@ -27,13 +27,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Todo> todos;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Activity> activities;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Remainder> remainders;
 
 }
+
+//Without `mappedBy`, Hibernate creates a separate `user_todos` join table in your database — completely unnecessary since `todo` table already has `user_id`.
+//Cascade means — whatever you do to the User, do the same to its Todos/Activities/Reminders automatically.
