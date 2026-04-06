@@ -5,6 +5,7 @@ import com.kalyan.CoreDesk.DTO.Request.RegisterRequestDTO;
 import com.kalyan.CoreDesk.DTO.Response.UserResponseDTO;
 import com.kalyan.CoreDesk.Model.User;
 import com.kalyan.CoreDesk.Repository.UserRepository;
+import com.kalyan.CoreDesk.Utils.SessionUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -121,5 +122,10 @@ public class AuthService {
         existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
 
         return userRepository.save(existingUser);
+    }
+
+    public UserResponseDTO getCurrentUser(HttpSession session) {
+        Long userId = SessionUtil.getSessionUserId(session);
+        return getUserById(userId);
     }
 }

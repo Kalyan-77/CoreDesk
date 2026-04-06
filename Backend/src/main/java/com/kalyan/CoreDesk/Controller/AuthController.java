@@ -55,6 +55,11 @@ public class AuthController {
         return authService.UpdateUser(id,user);
     }
 
+    @GetMapping("/status")
+    public UserResponseDTO checkStatus(HttpSession session){
+        return authService.getCurrentUser(session);
+    }
+
     @PostMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();

@@ -72,6 +72,14 @@ public class RemainderService {
         return mapToDTO(updated);
     }
 
+    public RemainderResponseDTO toggleReminderStatus(Long reminderId) {
+        Remainder reminder = remainderRepository.findById(reminderId)
+                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+        reminder.setCompleted(!reminder.isCompleted());
+        Remainder updated = remainderRepository.save(reminder);
+        return mapToDTO(updated);
+    }
+
 
     private RemainderResponseDTO mapToDTO(Remainder remainder) {
 

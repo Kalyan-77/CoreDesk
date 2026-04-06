@@ -25,10 +25,17 @@ public class RemainderController {
         return remainderService.createRemainder(userId, request);
     }
 
-    @GetMapping("/getRemainders")
+    @GetMapping("/list")
     public List<RemainderResponseDTO> getUserReminders(@PathVariable Long userId, HttpSession session){
         SessionUtil.verifyOwnership(userId, session);
         return remainderService.getUserReminders(userId);
+    }
+
+    @PatchMapping("/toggleComplete/{remainderId}")
+    public RemainderResponseDTO toggleRemainderComplete(@PathVariable Long userId, @PathVariable Long remainderId, HttpSession session){
+        SessionUtil.verifyOwnership(userId, session);
+        // Assuming service has or will have toggleReminderStatus
+        return remainderService.toggleReminderStatus(remainderId);
     }
 
     @DeleteMapping("/delete/{remainderId}")
